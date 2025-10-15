@@ -1,44 +1,38 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Management;
-using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Win32;
+﻿using System.Windows;
 using WindowsOptimizer.Service;
+using WindowsOptimizer.Views;
+using Wpf.Ui.Appearance;
 
 namespace WindowsOptimizer;
 
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App
+public partial class App : PrismApplication
 {
-    public new static App Current => (App)Application.Current;
-
-    private IServiceProvider? ServiceProvider { get; set; }
-
-    protected override void OnStartup(StartupEventArgs e)
+    protected override void OnInitialized()
     {
-        base.OnStartup(e);
-
-        var services = new ServiceCollection();
-
-        ConfigureServices(services);
-
-        ServiceProvider = services.BuildServiceProvider();
-
-        // 解析主窗口
-        var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-        mainWindow.Show();
+        base.OnInitialized();
+        var regionManager = Container.Resolve<IRegionManager>();
+        regionManager.RequestNavigate("ContentRegion", "Dashboard");
     }
 
-    private void ConfigureServices(IServiceCollection services)
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        // 注册服务
-        services.AddSingleton<ISystemInfoService, SystemInfoService>();
+        containerRegistry.RegisterForNavigation<DashboardPage>("Dashboard");
 
-        // 注册窗口
-        services.AddTransient<MainWindow>();
-        // bool vbsEnabled = IsVbsEnabled();
+        containerRegistry.RegisterSingleton<ISystemInfoService, SystemInfoService>();
+    }
+
+    protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+    {
+        // moduleCatalog.AddModule<CoreModule>();
+        // moduleCatalog.AddModule<HotkeyModule>();
+        // moduleCatalog.AddModule<WslModule>();
+    }
+
+    protected override Window CreateShell()
+    {
+        return Container.Resolve<MainWindow>();
     }
 }

@@ -6,10 +6,70 @@ namespace WindowsOptimizer.Service;
 public interface ISystemInfoService
 {
     bool IsVbsEnabled();
+    string OSVersion { get; }
+    string MachineName { get; }
+    string CPUInfo { get; }
+    string TotalMemory { get; }
+    string FreeMemory { get; }
 }
 
 public class SystemInfoService : ISystemInfoService
 {
+    public string OSVersion => Environment.OSVersion.ToString();
+    public string MachineName => Environment.MachineName;
+
+    public string CPUInfo
+    {
+        get
+        {
+            try
+            {
+                using var searcher = new System.Management.ManagementObjectSearcher("select Name from Win32_Processor");
+                foreach (var item in searcher.Get())
+                {
+                    return item["Name"]?.ToString() ?? "Unknown CPU";
+                }
+            }
+            catch { }
+            return "Unknown CPU";
+        }
+    }
+
+    public string TotalMemory
+    {
+        get
+        {
+            try
+            {
+                using var searcher = new System.Management.ManagementObjectSearcher("select TotalVisibleMemorySize from Win32_OperatingSystem");
+                foreach (var item in searcher.Get())
+                {
+                    ulong kb = (ulong)item["TotalVisibleMemorySize"];
+                    return $"{kb / 1024} MB";
+                }
+            }
+            catch { }
+            return "Unknown Memory";
+        }
+    }
+
+    public string FreeMemory
+    {
+        get
+        {
+            try
+            {
+                using var searcher = new System.Management.ManagementObjectSearcher("select FreePhysicalMemory from Win32_OperatingSystem");
+                foreach (var item in searcher.Get())
+                {
+                    ulong kb = (ulong)item["FreePhysicalMemory"];
+                    return $"{kb / 1024} MB";
+                }
+            }
+            catch { }
+            return "Unknown Memory";
+        }
+    }
     public bool IsVbsEnabled()
     {
         // 方法1：通过 WMI Win32_DeviceGuard 检查 SecurityServicesRunning

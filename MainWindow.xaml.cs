@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WindowsOptimizer.Service;
+using Wpf.Ui.Controls;
 
 namespace WindowsOptimizer;
 
@@ -17,13 +18,9 @@ namespace WindowsOptimizer;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private readonly ISystemInfoService systemInfoService;
 
-    public MainWindow(ISystemInfoService systemInfoService)
+    public MainWindow()
     {
         InitializeComponent();
-        this.systemInfoService = systemInfoService;
-        var vbsEnabled = systemInfoService.IsVbsEnabled();
-        Console.WriteLine(vbsEnabled ? "VBS true" : "VBS false");
     }
 }
