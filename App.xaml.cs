@@ -1,4 +1,10 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Text;
+using System.Windows;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using WindowsOptimizer.Context;
 using WindowsOptimizer.Service;
 using WindowsOptimizer.Views;
 using Wpf.Ui.Appearance;
@@ -22,6 +28,30 @@ public partial class App : PrismApplication
         containerRegistry.RegisterForNavigation<DashboardPage>("Dashboard");
 
         containerRegistry.RegisterSingleton<ISystemInfoService, SystemInfoService>();
+
+        containerRegistry.RegisterSingleton<AppDbContext>(() =>
+        {
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "WindowsOptimizer", "appdata.db");
+            Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseSqlite($"Data Source={dbPath}")
+                .Options;
+
+            var db = new AppDbContext(options);
+            db.Database.EnsureCreated(); // 自动创建数据库和表
+            return db;
+        });
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug() // 最低日志级别
+            .WriteTo.Console() // 控制台输出
+            .WriteTo.File("logs\\app.log", rollingInterval: RollingInterval.Day,
+                encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: true)
+            ) // 文件输出
+            .CreateLogger();
+
+        containerRegistry.RegisterInstance(Log.Logger);
     }
 
     protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

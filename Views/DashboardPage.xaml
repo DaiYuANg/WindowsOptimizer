@@ -11,159 +11,105 @@
              d:DesignHeight="600" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- 标题区域 -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,30">
-            <ui:SymbolIcon Symbol="AlignLeft28" Width="32" Height="32" Margin="0,0,12,0"/>
-            <TextBlock Text="System Dashboard" 
-                       FontSize="28" 
-                       FontWeight="Light" 
-                       VerticalAlignment="Center"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20" VerticalAlignment="Center">
+            <ui:SymbolIcon Symbol="AlignLeft28" Width="32" Height="32" Margin="0,0,12,0" />
+            <TextBlock Text="System Dashboard" FontSize="28" FontWeight="Light" VerticalAlignment="Center" />
         </StackPanel>
 
         <!-- 系统信息卡片网格 -->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
 
-            <!-- 操作系统信息卡片 -->
-            <ui:Card Grid.Row="0" Grid.Column="0" 
-                     Margin="10" 
-                     Padding="20"
+        <UniformGrid Grid.Row="1" Columns="2" Rows="2" Margin="0,0,0,20" HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch">
+            <!-- 操作系统卡片 -->
+            <ui:Card Grid.Row="0" Grid.Column="0" Margin="10" Padding="20" MinHeight="120"
                      Background="{DynamicResource ControlFillColorSecondaryBrush}">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                        <ui:SymbolIcon Symbol="Desktop24" 
-                                       Width="24" 
-                                       Height="24" 
-                                       Margin="0,0,8,0"/>
-                        <TextBlock Text="Operating System" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold"/>
+                        <ui:SymbolIcon Symbol="Desktop24" Width="24" Height="24" Margin="0,0,8,0" />
+                        <TextBlock Text="Operating System" FontSize="16" FontWeight="SemiBold" />
                     </StackPanel>
-                    <TextBlock Text="{Binding OSVersion}" 
-                               FontSize="18" 
-                               FontWeight="Light"
-                               Margin="0,0,0,8"/>
-                    <TextBlock Text="{Binding MachineName}" 
-                               FontSize="14" 
-                               Foreground="Black"/>
+                    <TextBlock Text="{Binding OSVersion}" FontSize="18" FontWeight="Light" Margin="0,0,0,4" />
+                    <TextBlock Text="{Binding MachineName}" FontSize="14" Foreground="Black" />
                 </StackPanel>
             </ui:Card>
 
             <!-- CPU 信息卡片 -->
-            <ui:Card Grid.Row="0" Grid.Column="1" 
-                     Margin="10" 
-                     Padding="20"
+            <ui:Card Grid.Row="0" Grid.Column="1" Margin="10" Padding="20" MinHeight="120"
                      Background="{DynamicResource ControlFillColorSecondaryBrush}">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                        <ui:SymbolIcon Symbol="MicPulse28" 
-                                       Width="24" 
-                                       Height="24" 
-                                       Margin="0,0,8,0"/>
-                        <TextBlock Text="Processor" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold"/>
+                        <ui:SymbolIcon Symbol="MicPulse28" Width="24" Height="24" Margin="0,0,8,0" />
+                        <TextBlock Text="Processor" FontSize="16" FontWeight="SemiBold" />
                     </StackPanel>
-                    <TextBlock Text="{Binding CPUInfo}" 
-                               FontSize="16" 
-                               FontWeight="Light"
-                               TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding CPUInfo}" FontSize="16" FontWeight="Light" TextWrapping="Wrap" />
                 </StackPanel>
             </ui:Card>
 
-            <!-- 内存使用情况卡片 -->
-            <ui:Card Grid.Row="1" Grid.Column="0" 
-                     Margin="10" 
-                     Padding="20"
+            <!-- 内存信息卡片 -->
+            <ui:Card Grid.Row="1" Grid.Column="0" Margin="10" Padding="20" MinHeight="120"
                      Background="{DynamicResource ControlFillColorSecondaryBrush}">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                        <ui:SymbolIcon Symbol="Memory16" 
-                                       Width="24" 
-                                       Height="24" 
-                                       Margin="0,0,8,0"/>
-                        <TextBlock Text="Memory" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold"/>
+                        <ui:SymbolIcon Symbol="Memory16" Width="24" Height="24" Margin="0,0,8,0" />
+                        <TextBlock Text="Memory" FontSize="16" FontWeight="SemiBold" />
                     </StackPanel>
-                    <TextBlock Text="{Binding TotalMemory}" 
-                               FontSize="18" 
-                               FontWeight="Light"
-                               Margin="0,0,0,4"/>
-                    <TextBlock Text="{Binding FreeMemory}" 
-                               FontSize="14" 
-                               Foreground="Black"/>
+                    <TextBlock Text="{Binding TotalMemory}" FontSize="18" FontWeight="Light" Margin="0,0,0,4" />
+                    <TextBlock Text="{Binding FreeMemory}" FontSize="14" Foreground="Black" />
+                    <!-- 可增加进度条显示使用率 -->
+                    <ProgressBar Value="{Binding MemoryUsagePercent}" Height="8" Margin="0,8,0,0" />
                 </StackPanel>
             </ui:Card>
 
             <!-- 系统状态卡片 -->
-            <ui:Card Grid.Row="1" Grid.Column="1" 
-                     Margin="10" 
-                     Padding="20"
+            <ui:Card Grid.Row="1" Grid.Column="1" Margin="10" Padding="20" MinHeight="120"
                      Background="{DynamicResource ControlFillColorSecondaryBrush}">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                        <ui:SymbolIcon Symbol="DataHistogram24" 
-                                       Width="24" 
-                                       Height="24" 
-                                       Margin="0,0,8,0"/>
-                        <TextBlock Text="System Status" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold"/>
+                        <ui:SymbolIcon Symbol="DataHistogram24" Width="24" Height="24" Margin="0,0,8,0" />
+                        <TextBlock Text="System Status" FontSize="16" FontWeight="SemiBold" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <ui:SymbolIcon Symbol="Checkmark24" 
-                                       Foreground="Green"
-                                       Width="16" 
-                                       Height="16" 
-                                       Margin="0,0,6,0"/>
-                        <TextBlock Text="All systems operational" 
-                                   FontSize="14"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8" VerticalAlignment="Center">
+                        <ui:SymbolIcon Symbol="Checkmark24" Foreground="Green" Width="16" Height="16"
+                                       Margin="0,0,6,0" />
+                        <TextBlock Text="All systems operational" FontSize="14" />
                     </StackPanel>
                 </StackPanel>
             </ui:Card>
+        </UniformGrid>
 
-            <!-- 操作按钮卡片 -->
-            <ui:Card Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                     Margin="10" 
-                     Padding="20"
-                     Background="{DynamicResource ControlFillColorSecondaryBrush}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <ui:Button Appearance="Primary"
-                               Content="System Settings"
-                               Command="{Binding NavigateSettingsCommand}"
-                               Margin="0,0,12,0">
-                        <ui:Button.Icon>
-                            <ui:SymbolIcon Symbol="Settings24"/>
-                        </ui:Button.Icon>
-                    </ui:Button>
-                    
-                    <ui:Button Appearance="Secondary"
-                               Content="Refresh Data"
-                               Margin="12,0,0,0">
-                        <ui:Button.Icon>
-                            <ui:SymbolIcon Symbol="ArrowClockwise24"/>
-                        </ui:Button.Icon>
-                    </ui:Button>
-                </StackPanel>
-            </ui:Card>
-        </Grid>
+        <!-- 操作按钮 -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+            <ui:Button Appearance="Primary"
+                       Content="System Settings"
+                       Command="{Binding NavigateSettingsCommand}"
+                       Margin="0,0,12,0"
+                       Width="140"
+                       Height="40">
+                <ui:Button.Icon>
+                    <ui:SymbolIcon Symbol="Settings24" />
+                </ui:Button.Icon>
+            </ui:Button>
+
+            <ui:Button Appearance="Secondary"
+                       Content="Refresh Data"
+                       Command="{Binding RefreshCommand}"
+                       Width="140"
+                       Height="40">
+                <ui:Button.Icon>
+                    <ui:SymbolIcon Symbol="ArrowClockwise24" />
+                </ui:Button.Icon>
+            </ui:Button>
+        </StackPanel>
     </Grid>
 </UserControl>
