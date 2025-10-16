@@ -26,6 +26,7 @@ public partial class App : PrismApplication
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterForNavigation<DashboardPage>("Dashboard");
+        containerRegistry.RegisterForNavigation<OptimizeOptionPage>("OptimizeOption");
 
         containerRegistry.RegisterSingleton<ISystemInfoService, SystemInfoService>();
 

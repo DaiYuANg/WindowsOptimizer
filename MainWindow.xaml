@@ -29,12 +29,13 @@
                 Grid.Column="0"
                 Margin="0"
                 PaneDisplayMode="Left"
-                OpenPaneLength="240">
+                >
                 <ui:NavigationView.MenuItems>
                     <ui:NavigationViewItem
                         Content="系统优化"
                         Icon="Computer"
-                        Tag="SystemPage" />
+                        Tag="OptimizeOption"
+                        />
                     <ui:NavigationViewItem
                         Content="启动项管理"
                         Icon="PlayCircle"

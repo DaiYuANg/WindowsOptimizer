@@ -1,0 +1,70 @@
+﻿<Window x:Class="WindowsOptimizer.Views.OptimizeOptionPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        Title="系统优化" Height="600" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- 左侧导航栏 -->
+        <StackPanel Grid.Column="0" Background="#F0F0F0">
+            <TextBlock Text="系统功能" FontSize="18" FontWeight="Bold" Margin="10"/>
+            <ListBox x:Name="NavigationList" SelectedIndex="0">
+                <ListBoxItem Tag="SystemPage">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="💻" FontSize="16"/>
+                        <TextBlock Text=" 系统优化" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Tag="OtherPage">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="⚙️" FontSize="16"/>
+                        <TextBlock Text=" 其他功能" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </ListBoxItem>
+            </ListBox>
+        </StackPanel>
+
+        <!-- 右侧内容区域 -->
+        <ScrollViewer Grid.Column="1" Margin="10">
+            <StackPanel>
+                <TextBlock Text="系统优化功能" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                <!-- 示例功能项 -->
+                <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <CheckBox x:Name="ChkAutoCleanup" Content="自动清理临时文件" FontSize="16" VerticalAlignment="Center"/>
+                            <Button Content="详情" Margin="10,0,0,0" Click="BtnDetail_Click"/>
+                        </StackPanel>
+                        <TextBlock Text="启用后，系统会定期扫描并删除临时文件，提高磁盘利用率。" TextWrapping="Wrap" Margin="20,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <CheckBox x:Name="ChkOptimizeStartup" Content="启动项优化" FontSize="16" VerticalAlignment="Center"/>
+                            <Button Content="详情" Margin="10,0,0,0" Click="BtnDetail_Click"/>
+                        </StackPanel>
+                        <TextBlock Text="优化启动项，减少开机等待时间。" TextWrapping="Wrap" Margin="20,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <CheckBox x:Name="ChkMemoryBoost" Content="内存优化" FontSize="16" VerticalAlignment="Center"/>
+                            <Button Content="详情" Margin="10,0,0,0" Click="BtnDetail_Click"/>
+                        </StackPanel>
+                        <TextBlock Text="释放未使用的内存，提高系统响应速度。" TextWrapping="Wrap" Margin="20,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>
