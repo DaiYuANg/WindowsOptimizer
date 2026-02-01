@@ -1,8 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using Serilog;
-using WindowsOptimizer.Service;
+﻿using Serilog;
+using WindowsControlPanel.Service;
 
-namespace WindowsOptimizer.ViewModels;
+namespace WindowsControlPanel.ViewModels;
 
 public class DashboardPageViewModel : BindableBase
 {

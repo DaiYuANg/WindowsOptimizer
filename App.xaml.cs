@@ -2,14 +2,12 @@
 using System.Text;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Serilog;
-using WindowsOptimizer.Context;
-using WindowsOptimizer.Service;
-using WindowsOptimizer.Views;
-using Wpf.Ui.Appearance;
+using WindowsControlPanel.Context;
+using WindowsControlPanel.Service;
+using WindowsControlPanel.Views;
 
-namespace WindowsOptimizer;
+namespace WindowsControlPanel;
 
 /// <summary>
 /// Interaction logic for App.xaml

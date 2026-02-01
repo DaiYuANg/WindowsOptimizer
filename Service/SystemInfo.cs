@@ -1,7 +1,7 @@
 ﻿using System.Management;
 using Microsoft.Win32;
 
-namespace WindowsOptimizer.Service;
+namespace WindowsControlPanel.Service;
 
 public interface ISystemInfoService
 {

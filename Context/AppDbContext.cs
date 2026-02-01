@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace WindowsOptimizer.Context;
+namespace WindowsControlPanel.Context;
 
 public class AppDbContext : DbContext
 {

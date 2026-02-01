@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace WindowsOptimizer.Views;
+namespace WindowsControlPanel.Views;
 
 public partial class OptimizeOptionPage
 {

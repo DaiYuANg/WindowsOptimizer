@@ -1,8 +1,8 @@
 ﻿<prism:PrismApplication
-    x:Class="WindowsOptimizer.App"
+    x:Class="WindowsControlPanel.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:WindowsOptimizer"
+    xmlns:local="clr-namespace:WindowsControlPanel"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
     <Application.Resources>
