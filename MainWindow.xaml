@@ -1,65 +1,31 @@
-﻿<ui:FluentWindow
+<ui:FluentWindow
     x:Class="WindowsControlPanel.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:regions="http://prismlibrary.com/"
-    Title="MainWindow" Height="500" Width="700"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="MainWindow"
+    Width="1180"
+    Height="760"
     WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!-- 顶部标题栏 -->
-        <ui:TitleBar
-            Title="Windows Optimizer"
-            Grid.Row="0"
-            ShowMaximize="True"
-            ShowMinimize="True"
-            ShowClose="True" />
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="240" /> <!-- 侧边导航栏 -->
-                <ColumnDefinition Width="*" />   <!-- 内容区域 -->
-            </Grid.ColumnDefinitions>
 
-            <!-- 左侧导航栏 -->
-            <ui:NavigationView
-                Grid.Column="0"
-                Margin="0"
-                PaneDisplayMode="Left"
-                >
-                <ui:NavigationView.MenuItems>
-                    <ui:NavigationViewItem
-                        Content="系统优化"
-                        Icon="Computer"
-                        Tag="OptimizeOption"
-                        />
-                    <ui:NavigationViewItem
-                        Content="启动项管理"
-                        Icon="PlayCircle"
-                        Tag="StartupPage" />
-                    <ui:NavigationViewItem
-                        Content="磁盘清理"
-                        Icon="Database"
-                        Tag="CleanupPage" />
-                </ui:NavigationView.MenuItems>
-            </ui:NavigationView>
+        <ui:TitleBar Grid.Row="0"
+                     Title="Windows Optimizer"
+                     ShowMaximize="True"
+                     ShowMinimize="True"
+                     ShowClose="True" />
 
-            <!-- 内容区 -->
-            <ui:Card
-                Grid.Column="1"
-                Margin="16"
-                Padding="16"
-                Background="{DynamicResource UiBrushBackground}"
-                BorderBrush="{DynamicResource UiBrushControlStroke}"
-                BorderThickness="1">
-                <ContentControl
-                    regions:RegionManager.RegionName="ContentRegion"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch" />
-            </ui:Card>
-        </Grid>
+        <Border Grid.Row="1"
+                Background="{DynamicResource ControlFillColorSecondaryBrush}">
+            <ContentControl
+                regions:RegionManager.RegionName="ContentRegion"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+        </Border>
     </Grid>
 </ui:FluentWindow>

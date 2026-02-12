@@ -1,0 +1,26 @@
+<UserControl x:Class="WindowsControlPanel.Views.FeaturePlaceholderPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="720">
+    <Grid>
+        <ui:Card Margin="10" Padding="18">
+            <StackPanel>
+                <TextBlock FontSize="24" FontWeight="SemiBold" Text="{Binding Title}" />
+                <TextBlock Margin="0,10,0,0"
+                           TextWrapping="Wrap"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                           Text="{Binding Description}" />
+                <TextBlock Margin="0,18,0,0"
+                           Text="当前为页面骨架。后续可接入脚本执行、状态检测和日志回显。"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
+        </ui:Card>
+    </Grid>
+</UserControl>

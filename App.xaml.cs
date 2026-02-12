@@ -2,6 +2,9 @@
 using System.Text;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
+using Prism.Ioc;
+using Prism.Modularity;
+using Prism.Unity;
 using Serilog;
 using WindowsControlPanel.Context;
 using WindowsControlPanel.Service;
@@ -25,6 +28,8 @@ public partial class App : PrismApplication
     {
         containerRegistry.RegisterForNavigation<DashboardPage>("Dashboard");
         containerRegistry.RegisterForNavigation<OptimizeOptionPage>("OptimizeOption");
+        containerRegistry.RegisterForNavigation<SecurityVirtualizationPage>("SecurityVirtualization");
+        containerRegistry.RegisterForNavigation<FeaturePlaceholderPage>("FeaturePlaceholder");
 
         containerRegistry.RegisterSingleton<ISystemInfoService, SystemInfoService>();
 
