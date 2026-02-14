@@ -83,7 +83,7 @@
             <ui:Card Margin="8" Padding="14">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <ui:SymbolIcon Symbol="GameController24" Width="18" Height="18" Margin="0,0,6,0" />
+                        <ui:SymbolIcon  Width="18" Height="18" Margin="0,0,6,0" />
                         <TextBlock FontSize="17" FontWeight="SemiBold" Text="游戏优化" />
                     </StackPanel>
                     <TextBlock Margin="0,6,0,0" Text="偏性能优先的系统功能预设与切换。" TextWrapping="Wrap" />

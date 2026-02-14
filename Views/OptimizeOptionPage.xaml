@@ -132,7 +132,7 @@
                                    Command="{Binding OpenGameCommand}"
                                    Content="游戏优化">
                             <ui:Button.Icon>
-                                <ui:SymbolIcon Symbol="GameController24" />
+                                <ui:SymbolIcon />
                             </ui:Button.Icon>
                             <ui:Button.Style>
                                 <Style TargetType="ui:Button" BasedOn="{StaticResource SidebarButtonStyle}">
