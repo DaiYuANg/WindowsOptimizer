@@ -1,0 +1,124 @@
+<UserControl x:Class="WindowsControlPanel.Views.SystemToolkitPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+             d:DesignHeight="680"
+             d:DesignWidth="920">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="220" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,14">
+            <TextBlock FontSize="24" FontWeight="SemiBold" Text="{Binding Title}" />
+            <TextBlock Margin="0,6,0,0"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                       Text="{Binding Description}" />
+        </StackPanel>
+
+        <ui:Card Grid.Row="1"
+                 Margin="0,0,0,14"
+                 Padding="14"
+                 Background="{StaticResource GlassPanelBrush}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock VerticalAlignment="Center"
+                           Text="{Binding FeatureStateSummary}"
+                           TextWrapping="Wrap" />
+                <ui:Button Grid.Column="1"
+                           Width="110"
+                           Margin="12,0,0,0"
+                           Appearance="Secondary"
+                           Command="{Binding RefreshStatusCommand}"
+                           Content="刷新状态" />
+            </Grid>
+        </ui:Card>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ui:Card Grid.Column="0" Margin="0,0,8,0" Padding="14">
+                <StackPanel>
+                    <TextBlock FontSize="17" FontWeight="SemiBold" Text="可选功能开关" />
+                    <TextBlock Margin="0,6,0,10"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Text="统一管理 Hyper-V / WSL / Sandbox，执行后通常需要重启。"
+                               TextWrapping="Wrap" />
+
+                    <WrapPanel Margin="0,0,0,8">
+                        <ui:Button Width="110" Margin="0,0,8,8" Appearance="Primary" Command="{Binding EnableHyperVCommand}" Content="启用 Hyper-V" />
+                        <ui:Button Width="110" Margin="0,0,8,8" Appearance="Secondary" Command="{Binding DisableHyperVCommand}" Content="禁用 Hyper-V" />
+                    </WrapPanel>
+                    <WrapPanel Margin="0,0,0,8">
+                        <ui:Button Width="110" Margin="0,0,8,8" Appearance="Primary" Command="{Binding EnableWslCommand}" Content="启用 WSL" />
+                        <ui:Button Width="110" Margin="0,0,8,8" Appearance="Secondary" Command="{Binding DisableWslCommand}" Content="禁用 WSL" />
+                    </WrapPanel>
+                    <WrapPanel>
+                        <ui:Button Width="110" Margin="0,0,8,8" Appearance="Primary" Command="{Binding EnableSandboxCommand}" Content="启用 Sandbox" />
+                        <ui:Button Width="110" Margin="0,0,8,8" Appearance="Secondary" Command="{Binding DisableSandboxCommand}" Content="禁用 Sandbox" />
+                        <ui:Button Width="140" Margin="0,0,8,8" Appearance="Secondary" Command="{Binding OpenOptionalFeaturesCommand}" Content="打开功能管理器" />
+                    </WrapPanel>
+                </StackPanel>
+            </ui:Card>
+
+            <ui:Card Grid.Column="1" Margin="8,0,0,0" Padding="14">
+                <StackPanel>
+                    <TextBlock FontSize="17" FontWeight="SemiBold" Text="网络与维护入口" />
+                    <TextBlock Margin="0,6,0,10"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Text="把深层设置与诊断命令整合成按钮动作。"
+                               TextWrapping="Wrap" />
+
+                    <WrapPanel Margin="0,0,0,8">
+                        <ui:Button Width="150" Margin="0,0,8,8" Appearance="Secondary" Command="{Binding OpenDnsSettingsCommand}" Content="打开 DNS 高级设置" />
+                        <ui:Button Width="170" Margin="0,0,8,8" Appearance="Secondary" Command="{Binding OpenDeliveryOptimizationCommand}" Content="打开传递优化设置" />
+                    </WrapPanel>
+                    <WrapPanel Margin="0,0,0,8">
+                        <ui:Button Width="150" Margin="0,0,8,8" Appearance="Secondary" Command="{Binding OpenStorageSenseCommand}" Content="打开存储感知" />
+                        <ui:Button Width="150" Margin="0,0,8,8" Appearance="Secondary" Command="{Binding QueryStartupProgramsCommand}" Content="扫描启动项" />
+                    </WrapPanel>
+                    <WrapPanel>
+                        <ui:Button Width="150" Margin="0,0,8,8" Appearance="Secondary" Command="{Binding GenerateEnergyReportCommand}" Content="生成能耗报告" />
+                        <ui:Button Width="150" Margin="0,0,8,8" Appearance="Secondary" Command="{Binding GenerateBatteryReportCommand}" Content="生成电池报告" />
+                    </WrapPanel>
+                </StackPanel>
+            </ui:Card>
+        </Grid>
+
+        <ui:Card Grid.Row="3" Margin="0,14,0,0" Padding="14">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" FontSize="15" FontWeight="SemiBold" Text="执行日志" />
+                <TextBox Grid.Row="1"
+                         Margin="0,8,0,10"
+                         Text="{Binding ExecutionLog, Mode=OneWay}"
+                         IsReadOnly="True"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto" />
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <ui:Button Width="110" Appearance="Secondary" Command="{Binding BackToHomeCommand}" Content="返回首页" />
+                </StackPanel>
+            </Grid>
+        </ui:Card>
+    </Grid>
+</UserControl>

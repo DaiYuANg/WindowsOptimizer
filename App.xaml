@@ -13,6 +13,16 @@
 
             </ResourceDictionary.MergedDictionaries>
             <FontFamily x:Key="AppFontFamily">Segoe UI Variable</FontFamily>
+            <SolidColorBrush x:Key="GlassShellBrush" Color="#2B121821" />
+            <SolidColorBrush x:Key="GlassPanelBrush" Color="#3A1A2330" />
+            <SolidColorBrush x:Key="GlassSidebarBrush" Color="#4A151D2A" />
+            <SolidColorBrush x:Key="GlassStrokeBrush" Color="#66FFFFFF" />
+            <LinearGradientBrush x:Key="GlassAmbientBrush" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#221B6BA3" Offset="0" />
+                <GradientStop Color="#1A1A2230" Offset="0.45" />
+                <GradientStop Color="#222C6E56" Offset="1" />
+            </LinearGradientBrush>
+
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="{StaticResource AppFontFamily}" />
                 <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
@@ -20,9 +30,20 @@
             <Style TargetType="TextBox">
                 <Setter Property="FontFamily" Value="{StaticResource AppFontFamily}" />
                 <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                <Setter Property="Background" Value="#29131924" />
+                <Setter Property="BorderBrush" Value="{StaticResource GlassStrokeBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
             </Style>
             <Style TargetType="Button">
                 <Setter Property="FontFamily" Value="{StaticResource AppFontFamily}" />
+            </Style>
+            <Style TargetType="ui:Card">
+                <Setter Property="Background" Value="{StaticResource GlassPanelBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource GlassStrokeBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+            <Style TargetType="ui:TitleBar">
+                <Setter Property="Background" Value="#20131A24" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

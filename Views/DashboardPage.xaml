@@ -9,7 +9,7 @@
              mc:Ignorable="d"
              d:DesignHeight="650"
              d:DesignWidth="980">
-    <Grid Margin="20" Background="{DynamicResource ControlFillColorDefaultBrush}">
+    <Grid Margin="20" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -26,7 +26,7 @@
         <ui:Card Grid.Row="1"
                  Margin="0,0,0,16"
                  Padding="14"
-                 Background="{DynamicResource ControlFillColorSecondaryBrush}">
+                 Background="{StaticResource GlassPanelBrush}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -35,6 +35,9 @@
                 <StackPanel>
                     <TextBlock FontSize="16" FontWeight="SemiBold" Text="当前系统信息" />
                     <TextBlock Margin="0,6,0,0" Text="{Binding SystemInfoSummary, TargetNullValue=Loading...}" />
+                    <TextBlock Margin="0,4,0,0"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Text="{Binding VirtualizationSummary}" />
                     <TextBlock Margin="0,4,0,0"
                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                Text="{Binding LastRefreshTime}" />

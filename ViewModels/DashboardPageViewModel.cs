@@ -6,17 +6,18 @@ namespace WindowsControlPanel.ViewModels;
 
 public class DashboardPageViewModel : BindableBase
 {
-    private readonly ISystemInfoService _systemInfoService;
+    private readonly ISystemControlService _systemControlService;
     private readonly IRegionManager _regionManager;
     private string _systemInfoSummary = "Loading system information...";
     private string _lastRefreshTime = string.Empty;
     private string _securitySummary = string.Empty;
+    private string _virtualizationSummary = string.Empty;
 
     public DashboardPageViewModel(
-        ISystemInfoService systemInfoService,
+        ISystemControlService systemControlService,
         IRegionManager regionManager)
     {
-        _systemInfoService = systemInfoService;
+        _systemControlService = systemControlService;
         _regionManager = regionManager;
 
         OpenSecurityCommand = new DelegateCommand(() => NavigateToHub("security"));
@@ -25,9 +26,9 @@ public class DashboardPageViewModel : BindableBase
         OpenStartupCommand = new DelegateCommand(() => NavigateToHub("startup"));
         OpenCleanupCommand = new DelegateCommand(() => NavigateToHub("cleanup"));
         OpenNetworkCommand = new DelegateCommand(() => NavigateToHub("network"));
-        RefreshCommand = new DelegateCommand(RefreshData);
+        RefreshCommand = new DelegateCommand(async () => await RefreshDataAsync());
 
-        RefreshData();
+        _ = RefreshDataAsync();
     }
 
     public string SystemInfoSummary
@@ -48,6 +49,12 @@ public class DashboardPageViewModel : BindableBase
         private set => SetProperty(ref _securitySummary, value);
     }
 
+    public string VirtualizationSummary
+    {
+        get => _virtualizationSummary;
+        private set => SetProperty(ref _virtualizationSummary, value);
+    }
+
     public DelegateCommand OpenSecurityCommand { get; }
     public DelegateCommand OpenDevelopmentCommand { get; }
     public DelegateCommand OpenGameCommand { get; }
@@ -56,15 +63,18 @@ public class DashboardPageViewModel : BindableBase
     public DelegateCommand OpenNetworkCommand { get; }
     public DelegateCommand RefreshCommand { get; }
 
-    private void RefreshData()
+    private async Task RefreshDataAsync()
     {
-        var osVersion = string.IsNullOrWhiteSpace(_systemInfoService.OSVersion) ? "Unknown OS" : _systemInfoService.OSVersion;
-        var machineName = string.IsNullOrWhiteSpace(_systemInfoService.MachineName) ? "Unknown machine" : _systemInfoService.MachineName;
+        var snapshot = await _systemControlService.GetStatusSnapshotAsync();
+        var osVersion = string.IsNullOrWhiteSpace(snapshot.OSVersion) ? "Unknown OS" : snapshot.OSVersion;
+        var machineName = string.IsNullOrWhiteSpace(snapshot.MachineName) ? "Unknown machine" : snapshot.MachineName;
 
-        SystemInfoSummary = $"{osVersion} | {machineName}";
-        SecuritySummary = _systemInfoService.IsVbsEnabled()
+        SystemInfoSummary = $"{osVersion} | {machineName} | CPU: {snapshot.CPUInfo}";
+        SecuritySummary = snapshot.IsVbsEnabled
             ? "VBS 当前为开启状态，适合安全优先场景。"
             : "VBS 当前为关闭状态，适合性能优先场景。";
+        VirtualizationSummary =
+            $"Hyper-V: {FormatFeature(snapshot.HyperVState)} | WSL: {FormatFeature(snapshot.WslState)} | VMP: {FormatFeature(snapshot.VmPlatformState)} | HVCI: {(snapshot.IsHvciEnabled ? "On" : "Off")}";
         LastRefreshTime = $"Last refresh: {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
     }
 
@@ -76,5 +86,15 @@ public class DashboardPageViewModel : BindableBase
         };
 
         _regionManager.RequestNavigate("ContentRegion", "OptimizeOption", parameters);
+    }
+
+    private static string FormatFeature(OptionalFeatureState state)
+    {
+        return state switch
+        {
+            OptionalFeatureState.Enabled => "On",
+            OptionalFeatureState.Disabled => "Off",
+            _ => "Unknown"
+        };
     }
 }

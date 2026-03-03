@@ -11,7 +11,7 @@
              d:DesignHeight="650"
              d:DesignWidth="980">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-          Background="{DynamicResource ControlFillColorDefaultBrush}">
+          Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -23,15 +23,15 @@
                 <Setter Property="Appearance" Value="Secondary" />
                 <Setter Property="FontWeight" Value="Normal" />
                 <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="BorderBrush" Value="{DynamicResource UiBrushControlStroke}" />
-                <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource GlassStrokeBrush}" />
+                <Setter Property="Background" Value="{StaticResource GlassPanelBrush}" />
             </Style>
 
             <Style x:Key="SidebarButtonSelectedStyle" TargetType="ui:Button" BasedOn="{StaticResource SidebarButtonStyle}">
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="BorderThickness" Value="1.5" />
                 <Setter Property="BorderBrush" Value="{DynamicResource SystemFillColorPrimaryBrush}" />
-                <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                <Setter Property="Background" Value="{StaticResource GlassSidebarBrush}" />
             </Style>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
@@ -40,7 +40,7 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0"
-                Background="{DynamicResource ControlFillColorSecondaryBrush}"
+                Background="{StaticResource GlassSidebarBrush}"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch">
             <Grid Margin="12,16">
@@ -81,7 +81,7 @@
                                             <Setter Property="FontWeight" Value="SemiBold" />
                                             <Setter Property="BorderThickness" Value="1.5" />
                                             <Setter Property="BorderBrush" Value="{DynamicResource SystemFillColorPrimaryBrush}" />
-                                            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                            <Setter Property="Background" Value="{StaticResource GlassSidebarBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -111,7 +111,7 @@
                                             <Setter Property="FontWeight" Value="SemiBold" />
                                             <Setter Property="BorderThickness" Value="1.5" />
                                             <Setter Property="BorderBrush" Value="{DynamicResource SystemFillColorPrimaryBrush}" />
-                                            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                            <Setter Property="Background" Value="{StaticResource GlassSidebarBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -141,7 +141,7 @@
                                             <Setter Property="FontWeight" Value="SemiBold" />
                                             <Setter Property="BorderThickness" Value="1.5" />
                                             <Setter Property="BorderBrush" Value="{DynamicResource SystemFillColorPrimaryBrush}" />
-                                            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                            <Setter Property="Background" Value="{StaticResource GlassSidebarBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -171,7 +171,7 @@
                                             <Setter Property="FontWeight" Value="SemiBold" />
                                             <Setter Property="BorderThickness" Value="1.5" />
                                             <Setter Property="BorderBrush" Value="{DynamicResource SystemFillColorPrimaryBrush}" />
-                                            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                            <Setter Property="Background" Value="{StaticResource GlassSidebarBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -201,7 +201,7 @@
                                             <Setter Property="FontWeight" Value="SemiBold" />
                                             <Setter Property="BorderThickness" Value="1.5" />
                                             <Setter Property="BorderBrush" Value="{DynamicResource SystemFillColorPrimaryBrush}" />
-                                            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                            <Setter Property="Background" Value="{StaticResource GlassSidebarBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -231,7 +231,7 @@
                                             <Setter Property="FontWeight" Value="SemiBold" />
                                             <Setter Property="BorderThickness" Value="1.5" />
                                             <Setter Property="BorderBrush" Value="{DynamicResource SystemFillColorPrimaryBrush}" />
-                                            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                            <Setter Property="Background" Value="{StaticResource GlassSidebarBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -257,8 +257,8 @@
                  Margin="12"
                  Padding="14"
                  BorderThickness="1"
-                 Background="{DynamicResource UiBrushBackground}"
-                 BorderBrush="{DynamicResource UiBrushControlStroke}"
+                 Background="{StaticResource GlassPanelBrush}"
+                 BorderBrush="{StaticResource GlassStrokeBrush}"
                  VerticalAlignment="Stretch"
                  HorizontalAlignment="Stretch">
             <ContentControl

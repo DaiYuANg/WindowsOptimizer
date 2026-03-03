@@ -20,8 +20,23 @@ public partial class App : PrismApplication
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        var logger = Container.Resolve<Serilog.ILogger>();
         var regionManager = Container.Resolve<IRegionManager>();
-        regionManager.RequestNavigate("ContentRegion", "Dashboard");
+        logger.Information("Application initialized. Navigating ContentRegion -> Dashboard.");
+        regionManager.RequestNavigate("ContentRegion", "Dashboard", result =>
+        {
+            if (result.Success)
+            {
+                logger.Information("Navigation succeeded: ContentRegion -> Dashboard.");
+                return;
+            }
+
+            logger.Error(
+                result.Exception,
+                "Navigation failed: ContentRegion -> Dashboard. Success={Success}",
+                result.Success
+            );
+        });
     }
 
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -29,9 +44,13 @@ public partial class App : PrismApplication
         containerRegistry.RegisterForNavigation<DashboardPage>("Dashboard");
         containerRegistry.RegisterForNavigation<OptimizeOptionPage>("OptimizeOption");
         containerRegistry.RegisterForNavigation<SecurityVirtualizationPage>("SecurityVirtualization");
+        containerRegistry.RegisterForNavigation<SystemToolkitPage>("SystemToolkit");
+        containerRegistry.RegisterForNavigation<DevelopmentAdvancedPage>("DevelopmentAdvanced");
+        containerRegistry.RegisterForNavigation<GamingAdvancedPage>("GamingAdvanced");
         containerRegistry.RegisterForNavigation<FeaturePlaceholderPage>("FeaturePlaceholder");
 
         containerRegistry.RegisterSingleton<ISystemInfoService, SystemInfoService>();
+        containerRegistry.RegisterSingleton<ISystemControlService, SystemControlService>();
 
         containerRegistry.RegisterSingleton<AppDbContext>(() =>
         {
@@ -47,14 +66,25 @@ public partial class App : PrismApplication
             return db;
         });
 
+        var logDirectory = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "WindowsControlPanel",
+            "logs"
+        );
+        Directory.CreateDirectory(logDirectory);
+        var logPath = Path.Combine(logDirectory, "app.log");
+
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug() // 最低日志级别
+            .Enrich.FromLogContext()
             .WriteTo.Console() // 控制台输出
-            .WriteTo.File("logs\\app.log", rollingInterval: RollingInterval.Day,
+            .WriteTo.File(logPath,
+                rollingInterval: RollingInterval.Day,
                 encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: true)
             ) // 文件输出
             .CreateLogger();
 
+        Log.Logger.Information("Serilog configured. Log file path: {LogPath}", logPath);
         containerRegistry.RegisterInstance(Log.Logger);
     }
 

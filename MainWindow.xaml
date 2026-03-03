@@ -7,21 +7,70 @@
     Title="MainWindow"
     Width="1180"
     Height="760"
+    Background="Transparent"
+    WindowBackdropType="Mica"
+    WindowCornerPreference="Round"
+    ExtendsContentIntoTitleBar="True"
     WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.Background>
+            <StaticResource ResourceKey="GlassAmbientBrush" />
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Grid.Row="0"
-                     Title="Windows Optimizer"
-                     ShowMaximize="True"
-                     ShowMinimize="True"
-                     ShowClose="True" />
+        <Border Grid.Row="0"
+                Margin="8,8,8,0"
+                CornerRadius="10,10,0,0"
+                Background="#26101924"
+                BorderBrush="{StaticResource GlassStrokeBrush}"
+                BorderThickness="1">
+            <Grid Height="42" MouseLeftButtonDown="TitleBar_OnMouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0"
+                            Margin="14,0,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <TextBlock FontSize="15" FontWeight="SemiBold" Text="Windows Optimizer" />
+                    <TextBlock Margin="10,0,0,0"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Text="Control Panel" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1"
+                            Margin="0,0,6,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Button Width="34"
+                            Height="28"
+                            Margin="0,0,4,0"
+                            Click="MinimizeButton_OnClick"
+                            Content="-" />
+                    <Button Width="34"
+                            Height="28"
+                            Margin="0,0,4,0"
+                            Click="MaxRestoreButton_OnClick"
+                            Content="□" />
+                    <Button Width="34"
+                            Height="28"
+                            Click="CloseButton_OnClick"
+                            Content="X" />
+                </StackPanel>
+            </Grid>
+        </Border>
 
         <Border Grid.Row="1"
-                Background="{DynamicResource ControlFillColorSecondaryBrush}">
+                Margin="10"
+                CornerRadius="12"
+                Background="{StaticResource GlassShellBrush}"
+                BorderBrush="{StaticResource GlassStrokeBrush}"
+                BorderThickness="1">
             <ContentControl
                 regions:RegionManager.RegionName="ContentRegion"
                 HorizontalAlignment="Stretch"

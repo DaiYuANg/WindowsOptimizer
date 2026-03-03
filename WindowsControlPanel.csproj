@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
-<!--        <ApplicationManifest>app.manifest</ApplicationManifest>-->
+        <ApplicationManifest>app.manifest</ApplicationManifest>
     </PropertyGroup>
 
     <ItemGroup>
@@ -26,6 +26,12 @@
       <PackageReference Include="Serilog.Sinks.SQLite" Version="6.0.0" />
       <PackageReference Include="System.Management" Version="10.0.0-rc.1.25451.107" />
       <PackageReference Include="WPF-UI" Version="4.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Scripts\*.ps1">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

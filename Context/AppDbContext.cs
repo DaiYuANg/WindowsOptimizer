@@ -20,13 +20,13 @@ public class AppDbContext : DbContext
 public class SystemLog
 {
     public int Id { get; set; }
-    public string Message { get; set; }
+    public string Message { get; set; } = string.Empty;
     public DateTime Timestamp { get; set; }
 }
 
 public class UserSetting
 {
     public int Id { get; set; }
-    public string Key { get; set; }
-    public string Value { get; set; }
+    public string Key { get; set; } = string.Empty;
+    public string Value { get; set; } = string.Empty;
 }
